@@ -1,0 +1,2 @@
+mosh 524
+variants universal depends_build port:pkgconfig portdir net/mosh description {Mobile Shell} depends_fetch bin:git:git homepage http://mosh.mit.edu/ epoch 0 platforms darwin depends_lib {port:ncurses port:protobuf-cpp port:zlib port:openssl port:p5.16-getopt-long} name mosh long_description {Mosh is a replacement for ssh that better handles high-latency, high-packet-loss, dynamically-addressed network links} maintainers mit.edu:quentin license {{GPL-3+ OpenSSLException}} categories net version 1.2.4-20150326 revision 0

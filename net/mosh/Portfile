@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem              1.0
+
+name                    mosh
+version                 1.2.4-20150327
+categories              net
+license                 {GPL-3+ OpenSSLException}
+platforms               darwin
+maintainers             mit.edu:quentin
+description             Mobile Shell
+long_description        Mosh is a replacement for ssh that better handles \
+                        high-latency, high-packet-loss, dynamically-addressed \
+                        network links
+homepage                http://mosh.mit.edu/
+
+fetch.type              git
+git.url                 https://github.com/keithw/mosh.git
+git.branch              c6cd99ba971123aa4072d3ab8466c3d2467db9bd
+
+depends_build           port:pkgconfig \
+                        port:autoconf \
+                        port:automake \
+                        port:libtool
+
+
+depends_lib             port:ncurses \
+                        port:protobuf-cpp \
+                        port:zlib \
+                        port:openssl \
+                        port:p5.16-getopt-long
+
+post-patch {
+    reinplace "s|#!/usr/bin/env perl|#!${prefix}/bin/perl5.16|" ${worksrcpath}/scripts/mosh
+    #reinplace "s|my .MOSH_VERSION =.+|my \$MOSH_VERSION = '${version}-${git.branch}';|g" ${worksrcpath}/scripts/mosh
+    reinplace "s|^my .MOSH_VERSION.*|my \$MOSH_VERSION = '${version}-${git.branch}';|g" ${worksrcpath}/scripts/mosh
+}
+
+post-destroot {
+    xinstall -d ${destroot}${prefix}/etc/bash_completion.d
+    copy ${worksrcpath}/conf/bash_completion.d/mosh \
+         ${destroot}${prefix}/etc/bash_completion.d/mosh
+}
+
+configure.cmd           ./autogen.sh && ./configure
+

@@ -4,11 +4,12 @@
 PortSystem              1.0
 
 name                    mosh
-version                 1.2.4-20150327
+version                 1.2.4
+revision                20150327
 categories              net
 license                 {GPL-3+ OpenSSLException}
 platforms               darwin
-maintainers             mit.edu:quentin
+maintainers             randywallace.com:randy
 description             Mobile Shell
 long_description        Mosh is a replacement for ssh that better handles \
                         high-latency, high-packet-loss, dynamically-addressed \
@@ -33,7 +34,6 @@ depends_lib             port:ncurses \
 
 post-patch {
     reinplace "s|#!/usr/bin/env perl|#!${prefix}/bin/perl5.16|" ${worksrcpath}/scripts/mosh
-    #reinplace "s|my .MOSH_VERSION =.+|my \$MOSH_VERSION = '${version}-${git.branch}';|g" ${worksrcpath}/scripts/mosh
     reinplace "s|^my .MOSH_VERSION.*|my \$MOSH_VERSION = '${version}-${git.branch}';|g" ${worksrcpath}/scripts/mosh
 }
 

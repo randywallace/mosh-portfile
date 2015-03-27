@@ -34,4 +34,6 @@ I may or may not update this repo depending on whether or not I see somthing use
 Feel free to submit a PR if you make an update you think is worthy, and I'll likely merge it without a lot of fanfare
 if it looks good to me under the assumption that you knew what you were doing and tested appropriately.
 
+If you just want to increment to the latest commit, update the ```git.branch``` variable in the Portfile and increment the revision number to the current date.  This will make it easy to rollback in macports if necessary.
+
 
